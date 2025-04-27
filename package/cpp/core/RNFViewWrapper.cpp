@@ -269,4 +269,21 @@ std::unordered_map<std::string, int> ViewWrapper::getViewport() {
   return viewport;
 }
 
+std::shared_ptr<BloomOptionsWrapper> ViewWrapper::createBloomOptions() {
+  return std::make_shared<BloomOptionsWrapper>();
+}
+
+void ViewWrapper::setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options) {
+  if (!options) {
+    [[unlikely]];
+    throw std::invalid_argument("BloomOptions is null");
+  }
+  std::unique_lock lock(_mutex);
+  pointee()->setBloomOptions(*options.get());
+}
+
+std::shared_ptr<BloomOptionsWrapper> ViewWrapper::getBloomOptions() {
+  return std::make_shared<BloomOptionsWrapper>(pointee()->getBloomOptions());
+}
+
 } // namespace margelo
