@@ -56,7 +56,6 @@ add_library(
     ../cpp/core/RNFViewWrapper.cpp
     ../cpp/core/RNFSwapChainWrapper.cpp
     ../cpp/core/RNFFilamentAssetWrapper.cpp
-    ../cpp/core/RNFBloomOptionsWrapper.cpp
     ../cpp/core/RNFAnimatorWrapper.cpp
     ../cpp/core/RNFTransformManagerImpl.cpp
     ../cpp/core/RNFTransformManagerWrapper.cpp
