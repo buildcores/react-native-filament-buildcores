@@ -10,6 +10,9 @@ void ViewWrapper::loadHybridMethods() {
   registerHybridMethod("createDynamicResolutionOptions", &ViewWrapper::createDynamicResolutionOptions, this);
   registerHybridMethod("setDynamicResolutionOptions", &ViewWrapper::setDynamicResolutionOptions, this);
   registerHybridMethod("getDynamicResolutionOptions", &ViewWrapper::getDynamicResolutionOptions, this);
+  registerHybridMethod("createBloomOptions", &ViewWrapper::createBloomOptions, this);
+  registerHybridMethod("setBloomOptions", &ViewWrapper::setBloomOptions, this);
+  registerHybridMethod("getBloomOptions", &ViewWrapper::getBloomOptions, this);
   registerHybridSetter("temporalAntiAliasingOptions", &ViewWrapper::setTemporalAntiAliasingOptions, this);
   registerHybridGetter("screenSpaceRefraction", &ViewWrapper::isScreenSpaceRefractionEnabled, this);
   registerHybridSetter("screenSpaceRefraction", &ViewWrapper::setScreenSpaceRefractionEnabled, this);

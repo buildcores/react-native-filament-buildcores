@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect } from 'react'
 import {
   AmbientOcclusionOptions,
+  BloomOptions,
   DynamicResolutionOptions,
   FrameRateOptions,
   TemporalAntiAliasingOptions,
@@ -9,12 +10,14 @@ import {
 } from '../types'
 import { useFilamentContext } from '../hooks/useFilamentContext'
 import { makeAmbientOcclusionHostObject } from '../utilities/makeAmbientOcclusionHostObject'
+import { makeBloomHostObject } from '../utilities/makeBloomHostObject'
 import { makeDynamicResolutionHostObject } from '../utilities/makeDynamicResolutionHostObject'
 
 export type ViewConfigProps = Partial<
   Pick<View, 'antiAliasing' | 'screenSpaceRefraction' | 'postProcessing' | 'dithering' | 'shadowing'>
 > & {
   ambientOcclusionOptions?: AmbientOcclusionOptions
+  bloomOptions?: BloomOptions
   dynamicResolutionOptions?: DynamicResolutionOptions
   temporalAntiAliasingOptions?: TemporalAntiAliasingOptions
 }
@@ -41,6 +44,7 @@ export function Configurator({ rendererProps, viewProps, children }: Configurato
   const {
     ambientOcclusionOptions,
     antiAliasing,
+    bloomOptions,
     dithering,
     dynamicResolutionOptions,
     postProcessing,
@@ -52,6 +56,10 @@ export function Configurator({ rendererProps, viewProps, children }: Configurato
     if (ambientOcclusionOptions != null) {
       const options = makeAmbientOcclusionHostObject(view, ambientOcclusionOptions)
       view.setAmbientOcclusionOptions(options)
+    }
+    if (bloomOptions != null) {
+      const options = makeBloomHostObject(view, bloomOptions)
+      view.setBloomOptions(options)
     }
     if (dynamicResolutionOptions != null) {
       const options = makeDynamicResolutionHostObject(view, dynamicResolutionOptions)
@@ -67,6 +75,7 @@ export function Configurator({ rendererProps, viewProps, children }: Configurato
     view,
     ambientOcclusionOptions,
     antiAliasing,
+    bloomOptions,
     dithering,
     dynamicResolutionOptions,
     postProcessing,

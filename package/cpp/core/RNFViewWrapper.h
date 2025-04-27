@@ -8,6 +8,7 @@
 #include "RNFQualityLevel.h"
 #include "RNFSceneWrapper.h"
 #include "jsi/RNFPointerHolder.h"
+#include "RNFBloomOptionsWrapper.h"
 
 #include <filament/View.h>
 #include <filament/Viewport.h>
@@ -33,6 +34,9 @@ private:
   std::shared_ptr<DynamicResolutionOptionsWrapper> createDynamicResolutionOptions();
   void setDynamicResolutionOptions(std::shared_ptr<DynamicResolutionOptionsWrapper> options);
   std::shared_ptr<DynamicResolutionOptionsWrapper> getDynamicResolutionOptions();
+  std::shared_ptr<BloomOptionsWrapper> createBloomOptions();
+  void setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options);
+  std::shared_ptr<BloomOptionsWrapper> getBloomOptions();
   void setTemporalAntiAliasingOptions(std::unordered_map<std::string, double> options);
   void setPostProcessingEnabled(bool enabled);
   bool isPostProcessingEnabled();
