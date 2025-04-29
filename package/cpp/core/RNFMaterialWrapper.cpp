@@ -5,7 +5,7 @@
 #include "RNFMaterialWrapper.h"
 #include "RNFRenderableManagerWrapper.h"
 
-#include <filament/Texture.h>
+#include <react_native_filament/filament/Texture.h>
 
 namespace margelo {
 void MaterialWrapper::loadHybridMethods() {

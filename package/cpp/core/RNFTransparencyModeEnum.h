@@ -5,7 +5,7 @@
 #pragma once
 
 #include "jsi/RNFEnumMapper.h"
-#include <filament/Material.h>
+#include <react_native_filament/filament/Material.h>
 
 namespace margelo {
 using namespace filament;

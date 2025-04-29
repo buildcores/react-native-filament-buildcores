@@ -8,14 +8,14 @@
 #include "RNFRendererWrapper.h"
 #include "utils/RNFConverter.h"
 
-#include <filament/Color.h>
-#include <filament/Engine.h>
-#include <filament/Fence.h>
-#include <filament/IndirectLight.h>
-#include <filament/LightManager.h>
-#include <filament/RenderableManager.h>
-#include <filament/SwapChain.h>
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/Color.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/Fence.h>
+#include <react_native_filament/filament/IndirectLight.h>
+#include <react_native_filament/filament/LightManager.h>
+#include <react_native_filament/filament/RenderableManager.h>
+#include <react_native_filament/filament/SwapChain.h>
+#include <react_native_filament/filament/TransformManager.h>
 #include <utils/Entity.h>
 #include <utils/EntityManager.h>
 

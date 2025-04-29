@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <filament/MaterialInstance.h>
+#include <react_native_filament/filament/MaterialInstance.h>
 
 #include "jsi/RNFHybridObject.h"
 

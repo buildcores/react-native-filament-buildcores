@@ -12,7 +12,7 @@
 #include "core/utils/RNFEntityWrapper.h"
 #include "jsi/RNFPointerHolder.h"
 
-#include <filament/RenderableManager.h>
+#include <react_native_filament/filament/RenderableManager.h>
 #include <gltfio/TextureProvider.h>
 
 namespace margelo {

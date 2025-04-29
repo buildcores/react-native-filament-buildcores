@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <filament/Box.h>
+#include <react_native_filament/filament/Box.h>
 #include <jsi/RNFHybridObject.h>
 
 namespace margelo {

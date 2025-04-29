@@ -3,8 +3,8 @@
 //
 
 #include "RNFAnimatorWrapper.h"
-#include <filament/Engine.h>
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/TransformManager.h>
 #include <utils/NameComponentManager.h>
 
 namespace margelo {

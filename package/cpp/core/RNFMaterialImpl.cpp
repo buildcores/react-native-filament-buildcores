@@ -1,7 +1,7 @@
 
 #include "RNFMaterialImpl.h"
-#include <filament/Engine.h>
-#include <filament/TextureSampler.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/TextureSampler.h>
 #include <math/mat3.h>
 
 namespace margelo {

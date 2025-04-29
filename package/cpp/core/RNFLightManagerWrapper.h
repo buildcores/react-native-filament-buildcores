@@ -6,8 +6,8 @@
 
 #include "core/utils/RNFEntityWrapper.h"
 #include "jsi/RNFPointerHolder.h"
-#include <filament/Engine.h>
-#include <filament/LightManager.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/LightManager.h>
 
 namespace margelo {
 

@@ -7,7 +7,7 @@
 #include "RNFMaterialInstanceWrapper.h"
 #include "jsi/RNFHybridObject.h"
 
-#include <filament/Material.h>
+#include <react_native_filament/filament/Material.h>
 
 namespace margelo {
 

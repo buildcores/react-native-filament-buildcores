@@ -7,7 +7,7 @@
 #include "RNFSwapChainWrapper.h"
 #include "RNFViewWrapper.h"
 #include "jsi/RNFPointerHolder.h"
-#include <filament/Renderer.h>
+#include <react_native_filament/filament/Renderer.h>
 
 namespace margelo {
 

@@ -1,5 +1,5 @@
 #include "RNFSceneWrapper.h"
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/TransformManager.h>
 #include <utils/Entity.h>
 
 namespace margelo {

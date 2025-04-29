@@ -22,10 +22,10 @@
 #include "core/utils/RNFManipulatorWrapper.h"
 
 #include <camutils/Manipulator.h>
-#include <filament/Engine.h>
-#include <filament/LightManager.h>
-#include <filament/Renderer.h>
-#include <filament/SwapChain.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/LightManager.h>
+#include <react_native_filament/filament/Renderer.h>
+#include <react_native_filament/filament/SwapChain.h>
 #include <gltfio/AssetLoader.h>
 #include <gltfio/MaterialProvider.h>
 #include <gltfio/ResourceLoader.h>

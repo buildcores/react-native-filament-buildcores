@@ -7,8 +7,8 @@
 #include "bullet/RNFRigidBodyWrapper.h"
 #include "core/math/RNFTMat44Wrapper.h"
 #include "core/utils/RNFEntityWrapper.h"
-#include <filament/Engine.h>
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/Engine.h>
+#include <react_native_filament/filament/TransformManager.h>
 
 namespace margelo {
 

@@ -5,7 +5,7 @@
 #include "RNFTransformManagerImpl.h"
 #include "RNFAABBWrapper.h"
 #include "core/utils/RNFConverter.h"
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/TransformManager.h>
 #include <math/mat4.h>
 #include <utils/EntityInstance.h>
 

@@ -2,7 +2,7 @@
 
 #include "jsi/RNFPointerHolder.h"
 
-#include <filament/SwapChain.h>
+#include <react_native_filament/filament/SwapChain.h>
 
 namespace margelo {
 using namespace filament;

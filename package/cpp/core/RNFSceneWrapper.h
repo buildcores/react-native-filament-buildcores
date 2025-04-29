@@ -4,7 +4,7 @@
 #include "core/utils/RNFEntityWrapper.h"
 #include "jsi/RNFPointerHolder.h"
 
-#include <filament/Scene.h>
+#include <react_native_filament/filament/Scene.h>
 #include <gltfio/AssetLoader.h>
 #include <gltfio/FilamentAsset.h>
 #include <utils/Entity.h>

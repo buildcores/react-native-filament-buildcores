@@ -3,7 +3,7 @@
 #include "RNFQualityLevel.h"
 #include "jsi/RNFEnumMapper.h"
 #include "jsi/RNFHybridObject.h"
-#include <filament/Options.h>
+#include <react_native_filament/filament/Options.h>
 #include <string>
 #include <stdexcept>
 

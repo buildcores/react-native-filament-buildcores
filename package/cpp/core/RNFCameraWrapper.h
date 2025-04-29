@@ -3,7 +3,7 @@
 #include "jsi/RNFPointerHolder.h"
 
 #include "utils/RNFManipulatorWrapper.h"
-#include <filament/Camera.h>
+#include <react_native_filament/filament/Camera.h>
 
 namespace margelo {
 using namespace filament;

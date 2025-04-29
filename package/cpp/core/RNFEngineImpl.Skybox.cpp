@@ -7,8 +7,8 @@
 #include "RNFReferences.h"
 #include "utils/RNFConverter.h"
 
-#include <filament/Scene.h>
-#include <filament/Skybox.h>
+#include <react_native_filament/filament/Scene.h>
+#include <react_native_filament/filament/Skybox.h>
 
 #include <ktxreader/Ktx1Reader.h>
 

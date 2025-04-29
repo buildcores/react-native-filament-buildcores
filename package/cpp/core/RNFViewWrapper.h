@@ -10,8 +10,8 @@
 #include "jsi/RNFPointerHolder.h"
 #include "RNFBloomOptionsWrapper.h"
 
-#include <filament/View.h>
-#include <filament/Viewport.h>
+#include <react_native_filament/filament/View.h>
+#include <react_native_filament/filament/Viewport.h>
 
 namespace margelo {
 using namespace filament;

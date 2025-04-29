@@ -5,8 +5,8 @@
 #include "RNFRenderableManagerImpl.h"
 #include <cmath>
 
-#include <filament/IndexBuffer.h>
-#include <filament/VertexBuffer.h>
+#include <react_native_filament/filament/IndexBuffer.h>
+#include <react_native_filament/filament/VertexBuffer.h>
 #include <utils/EntityManager.h>
 
 namespace margelo {

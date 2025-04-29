@@ -3,8 +3,8 @@
 #include "jsi/RNFHybridObject.h"
 
 #include <core/VertexEntity.h>
-#include <filament/IndexBuffer.h>
-#include <filament/VertexBuffer.h>
+#include <react_native_filament/filament/IndexBuffer.h>
+#include <react_native_filament/filament/VertexBuffer.h>
 #include <utils/Entity.h>
 
 namespace margelo {

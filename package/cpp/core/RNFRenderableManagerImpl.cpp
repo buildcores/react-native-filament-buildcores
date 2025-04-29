@@ -11,8 +11,8 @@
 
 #include <cmath>
 
-#include <filament/IndexBuffer.h>
-#include <filament/MaterialInstance.h>
+#include <react_native_filament/filament/IndexBuffer.h>
+#include <react_native_filament/filament/MaterialInstance.h>
 #include <gltfio/TextureProvider.h>
 #include <math/norm.h>
 

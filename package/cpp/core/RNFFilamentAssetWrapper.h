@@ -4,7 +4,7 @@
 #include "RNFNameComponentManagerWrapper.h"
 #include "core/utils/RNFEntityWrapper.h"
 #include "jsi/RNFPointerHolder.h"
-#include <filament/TransformManager.h>
+#include <react_native_filament/filament/TransformManager.h>
 #include <gltfio/FilamentAsset.h>
 
 namespace margelo {

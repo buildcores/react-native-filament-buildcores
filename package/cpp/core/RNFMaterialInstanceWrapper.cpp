@@ -5,7 +5,7 @@
 #include "RNFMaterialInstanceWrapper.h"
 #include "RNFCullingModeEnum.h"
 #include "RNFTransparencyModeEnum.h"
-#include <filament/Material.h>
+#include <react_native_filament/filament/Material.h>
 #include <math/mat3.h>
 
 namespace margelo {

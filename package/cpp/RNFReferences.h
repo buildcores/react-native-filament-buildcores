@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <filament/Engine.h>
+#include <react_native_filament/filament/Engine.h>
 #include <functional>
 #include <memory>
 
