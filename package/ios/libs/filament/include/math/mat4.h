@@ -18,7 +18,7 @@
 #define TNT_MATH_MAT4_H
 
 #include <math/TMatHelpers.h>
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/mat3.h>
 #include <math/quat.h>
 #include <math/scalar.h>

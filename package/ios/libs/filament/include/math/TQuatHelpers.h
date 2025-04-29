@@ -17,7 +17,7 @@
 #ifndef TNT_MATH_TQUATHELPERS_H
 #define TNT_MATH_TQUATHELPERS_H
 
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/scalar.h>
 #include <math/vec3.h>
 

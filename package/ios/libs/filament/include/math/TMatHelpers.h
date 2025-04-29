@@ -17,7 +17,7 @@
 #ifndef TNT_MATH_TMATHELPERS_H
 #define TNT_MATH_TMATHELPERS_H
 
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/quat.h>
 #include <math/TVecHelpers.h>
 

@@ -17,7 +17,7 @@
 #ifndef TNT_MATH_FAST_H
 #define TNT_MATH_FAST_H
 
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/scalar.h>
 
 #include <cmath>

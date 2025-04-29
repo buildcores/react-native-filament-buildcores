@@ -18,7 +18,7 @@
 #define TNT_MATH_MAT2_H
 
 #include <math/TMatHelpers.h>
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/vec2.h>
 
 #include <stdint.h>

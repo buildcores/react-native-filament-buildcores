@@ -18,7 +18,7 @@
 #define TNT_MATH_QUAT_H
 
 #include <math/TQuatHelpers.h>
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/half.h>
 #include <math/vec3.h>
 #include <math/vec4.h>

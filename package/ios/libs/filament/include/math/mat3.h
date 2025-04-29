@@ -17,7 +17,7 @@
 #ifndef TNT_MATH_MAT3_H
 #define TNT_MATH_MAT3_H
 
-#include <math/compiler.h>
+#include <math/compiler_math.h>
 #include <math/quat.h>
 #include <math/vec3.h>
 #include <math/TMatHelpers.h>
