@@ -1,5 +1,5 @@
 import { PointerHolder } from './PointerHolder'
-import { Float3 } from './Math'
+import { Float3, Mat4f } from './Math'
 import { CameraManipulator } from './CameraManipulator'
 
 /**
@@ -98,4 +98,11 @@ export interface RNFCamera extends PointerHolder {
    * @see Fov.
    */
   setProjection(fov: number, aspect: number, near: number, far: number): void
+
+  /**
+   * Utility to set the model matrix of the camera.
+   *
+   * @param matrixData The model matrix of the camera.
+   */
+  setModelMatrix(matrixData: Mat4f): void
 }
