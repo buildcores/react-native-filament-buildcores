@@ -1,6 +1,7 @@
 import { PointerHolder } from './PointerHolder'
 import { Float3, Mat4f } from './Math'
 import { CameraManipulator } from './CameraManipulator'
+import { Entity } from './Entity'
 
 /**
  * Camera represents the eye through which the scene is viewed.
@@ -121,4 +122,11 @@ export interface RNFCamera extends PointerHolder {
    * @param far The far plane distance.
    */
   setCustomProjection(projectionMatrixData: Mat4f, near: number, far: number): void
+
+  /**
+   * Utility to get the entity of the camera.
+   *
+   * @returns The entity of the camera.
+   */
+  getEntity(): Entity
 }

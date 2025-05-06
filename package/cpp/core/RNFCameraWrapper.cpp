@@ -1,5 +1,6 @@
 #include "RNFCameraWrapper.h"
 #include "RNFCameraFovEnum.h"
+#include "core/utils/RNFEntityWrapper.h"
 #include <math/mat4.h>
 #include <vector>
 
@@ -11,6 +12,7 @@ void margelo::CameraWrapper::loadHybridMethods() {
   registerHybridMethod("setModelMatrix", &CameraWrapper::setModelMatrix, this);
   registerHybridMethod("setCustomProjection", &CameraWrapper::setCustomProjection, this);
   registerHybridMethod("getModelMatrix", &CameraWrapper::getModelMatrix, this);
+  registerHybridMethod("getEntity", &CameraWrapper::getEntity, this);
 }
 
 void margelo::CameraWrapper::lookAtCameraManipulator(std::shared_ptr<ManipulatorWrapper> cameraManipulator) {
@@ -80,3 +82,9 @@ std::vector<double> margelo::CameraWrapper::getModelMatrix() {
   matrixData[12] = modelMatrix[3][0]; matrixData[13] = modelMatrix[3][1]; matrixData[14] = modelMatrix[3][2]; matrixData[15] = modelMatrix[3][3]; // Col 3
   return matrixData;
 }
+
+std::shared_ptr<EntityWrapper> margelo::CameraWrapper::getEntity() {
+  utils::Entity entity = pointee()->getEntity();
+  return std::make_shared<EntityWrapper>(entity);
+}
+

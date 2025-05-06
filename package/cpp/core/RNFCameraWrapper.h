@@ -1,9 +1,13 @@
 #pragma once
 
 #include "jsi/RNFPointerHolder.h"
+#include "core/utils/RNFEntityWrapper.h"
 
 #include "utils/RNFManipulatorWrapper.h"
 #include <filament/Camera.h>
+#include <vector>
+#include <string>
+#include <memory>
 
 namespace margelo {
 using namespace filament;
@@ -23,6 +27,7 @@ private:
   void setProjection(double fovInDegrees, double aspect, double near, double far, std::string directionStr);
   void setModelMatrix(std::vector<double> matrixData);
   void setCustomProjection(std::vector<double> projectionMatrixData, double near, double far);
+  std::shared_ptr<EntityWrapper> getEntity();
   // Convenience methods
   void lookAtCameraManipulator(std::shared_ptr<ManipulatorWrapper> cameraManipulator);
 };
