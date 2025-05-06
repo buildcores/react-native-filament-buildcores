@@ -105,4 +105,20 @@ export interface RNFCamera extends PointerHolder {
    * @param matrixData The model matrix of the camera.
    */
   setModelMatrix(matrixData: Mat4f): void
+
+  /**
+   * Utility to get the model matrix of the camera.
+   *
+   * @returns The model matrix of the camera.
+   */
+  getModelMatrix(): Mat4f
+
+  /**
+   * Utility to set the custom projection matrix of the camera.
+   *
+   * @param projectionMatrixData The projection matrix of the camera.
+   * @param near The near plane distance.
+   * @param far The far plane distance.
+   */
+  setCustomProjection(projectionMatrixData: Mat4f, near: number, far: number): void
 }

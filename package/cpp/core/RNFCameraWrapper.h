@@ -14,11 +14,15 @@ public:
 
   void loadHybridMethods() override;
 
+  // Getter
+  std::vector<double> getModelMatrix();
+
 private:
   void lookAt(std::vector<double> eye, std::vector<double> center, std::vector<double> up);
   void setLensProjection(double fov, double aspect, double near, double far);
   void setProjection(double fovInDegrees, double aspect, double near, double far, std::string directionStr);
   void setModelMatrix(std::vector<double> matrixData);
+  void setCustomProjection(std::vector<double> projectionMatrixData, double near, double far);
   // Convenience methods
   void lookAtCameraManipulator(std::shared_ptr<ManipulatorWrapper> cameraManipulator);
 };
