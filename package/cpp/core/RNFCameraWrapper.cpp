@@ -83,7 +83,7 @@ std::vector<double> margelo::CameraWrapper::getModelMatrix() {
   return matrixData;
 }
 
-std::shared_ptr<EntityWrapper> margelo::CameraWrapper::getEntity() {
+std::shared_ptr<margelo::EntityWrapper> margelo::CameraWrapper::getEntity() {
   utils::Entity entity = pointee()->getEntity();
   return std::make_shared<EntityWrapper>(entity);
 }
