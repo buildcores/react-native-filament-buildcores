@@ -19,4 +19,5 @@ export interface MaterialInstance {
   getFloat3Parameter(name: string): Float3
   getFloat4Parameter(name: string): Float4
   readonly name: string
+  isValid(): boolean
 }

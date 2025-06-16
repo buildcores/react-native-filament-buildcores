@@ -24,6 +24,7 @@ void MaterialInstanceWrapper::loadHybridMethods() {
   registerHybridMethod("getFloat4Parameter", &MaterialInstanceWrapper::getFloat4Parameter, this);
   registerHybridMethod("getMat3fParameter", &MaterialInstanceWrapper::getMat3fParameter, this);
   registerHybridGetter("getName", &MaterialInstanceWrapper::getName, this);
+  registerHybridMethod("isValid", &MaterialInstanceWrapper::isValid, this);
 }
 
 void MaterialInstanceWrapper::setCullingMode(std::string mode) {
@@ -189,6 +190,12 @@ std::vector<double> MaterialInstanceWrapper::getMat3fParameter(std::string name)
   const float* matrixArray = matrix.asArray();
   return {matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4],
           matrixArray[5], matrixArray[6], matrixArray[7], matrixArray[8]};
+}
+
+bool MaterialInstanceWrapper::isValid() {
+  std::unique_lock lock(_mutex);
+
+  return _materialInstance != nullptr;
 }
 
 } // namespace margelo

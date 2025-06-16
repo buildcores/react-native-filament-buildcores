@@ -40,6 +40,8 @@ public: // Public API
   std::vector<double> getMat3fParameter(std::string name);
   std::string getName();
 
+  bool isValid();
+
 public: // Internal API
   MaterialInstance* getMaterialInstance() {
     return _materialInstance;
