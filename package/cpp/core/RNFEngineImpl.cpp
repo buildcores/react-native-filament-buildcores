@@ -363,7 +363,7 @@ std::shared_ptr<MaterialWrapper> EngineImpl::createMaterial(std::shared_ptr<Fila
         dispatcher->runAsync([engine, pMaterialImpl, sharedThis]() {
           Logger::log(TAG, "Destroying MaterialImpl / all material instances.... THIS IS DISABLED FOR NOW: HK");
 
-          /*
+          
           // Iterate over materialWrapper.getInstances() vector and destroy all instances
           for (auto& materialInstanceWrapper : pMaterialImpl->getInstances()) {
             std::unique_lock lock(sharedThis->_mutex);
@@ -373,7 +373,7 @@ std::shared_ptr<MaterialWrapper> EngineImpl::createMaterial(std::shared_ptr<Fila
           }
 
           delete pMaterialImpl;
-          */
+          
         });
       });
 
