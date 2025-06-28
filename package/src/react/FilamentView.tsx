@@ -22,6 +22,15 @@ export interface FilamentProps extends PublicNativeProps {
    * @note Don't call any methods on `engine` here - this will lead to deadlocks!
    */
   renderCallback: RenderCallback
+  /**
+   * Maximum number of frames per second that should be rendered. If omitted (or 0/undefined),
+   * the view will render every display-refresh tick (default behaviour).
+   *
+   * Note: This is implemented completely in JS by dropping frames, so the native choreographer
+   * still wakes up each V-sync. Use `pause()`/`resume()` for coarse-grained control if you need
+   * to save even more power.
+   */
+  maxFps?: number
 }
 
 type RefType = InstanceType<FilamentViewNativeType>
@@ -73,9 +82,21 @@ export class FilamentView extends React.PureComponent<FilamentProps> {
   }
 
   private latestToken = 0
+  private getEffectiveMaxFps = (): number => {
+    const ctxMax = this.getContext().buildcores_extensions?.maxFps ?? 0
+    const propMax = (this.props as any).maxFps ?? undefined
+    return propMax != null ? propMax : ctxMax
+  }
+
+  private currentMaxFps = 0 // track effective FPS used for current listener
+
   private updateRenderCallback = async (callback: RenderCallback, swapChain: SwapChain) => {
     const currentToken = ++this.latestToken
     const { renderer, view, workletContext, choreographer } = this.getContext()
+    // Capture desired fps from context/prop at the moment of setting the callback
+    const maxFps = this.getEffectiveMaxFps()
+    const minDeltaNs = maxFps > 0 ? 1e9 / maxFps : 0
+    this.currentMaxFps = maxFps
 
     // When requesting to update the render callback we have to assume that the previous one is not valid anymore
     // ie. its pointing to already released resources from useDisposableResource:
@@ -87,11 +108,40 @@ export class FilamentView extends React.PureComponent<FilamentProps> {
       wrapWithErrorHandler(() => {
         'worklet'
 
+        let lastFrameTimestamp = 0 // timestamp of last delivered (not skipped) frame, in ns
+        let startTimestamp = 0
+
         // We need to create the function we pass to addFrameCallbackListener on the worklet thread, so that the
         // underlying JSI function is owned by that thread. Only then can we call it on the worklet thread when
         // the choreographer is calling its listeners.
         return choreographer.addFrameCallbackListener((frameInfo) => {
           'worklet'
+
+          // Determine whether to deliver this frame based on maxFps setting
+          let info = frameInfo
+
+          if (minDeltaNs > 0) {
+            const previousTimestamp = lastFrameTimestamp
+            const deltaToLastDelivered = previousTimestamp === 0 ? minDeltaNs : frameInfo.timestamp - previousTimestamp
+
+            // Skip if we're faster than the desired interval
+            if (deltaToLastDelivered < minDeltaNs) {
+              return
+            }
+
+            // Accept this frame, update last delivered timestamp
+            lastFrameTimestamp = frameInfo.timestamp
+
+            // Adjust timing fields so they match the throttled cadence
+            if (startTimestamp === 0) startTimestamp = frameInfo.timestamp
+            const passedSeconds = (frameInfo.timestamp - startTimestamp) / 1e9
+            const timeSinceLastFrame = previousTimestamp === 0 ? 0 : deltaToLastDelivered / 1e9
+            info = {
+              ...frameInfo,
+              passedSeconds,
+              timeSinceLastFrame,
+            }
+          }
 
           if (!swapChain.isValid) {
             // TODO: Supposedly fixed in https://github.com/margelo/react-native-filament/pull/210, remove this once proven
@@ -104,7 +154,7 @@ export class FilamentView extends React.PureComponent<FilamentProps> {
           }
 
           try {
-            callback(frameInfo)
+            callback(info)
 
             if (renderer.beginFrame(swapChain, frameInfo.timestamp)) {
               renderer.render(view)
@@ -162,6 +212,13 @@ export class FilamentView extends React.PureComponent<FilamentProps> {
     }
     if (prevProps.renderCallback !== this.props.renderCallback && this.swapChain != null) {
       // Note: if swapChain was null, the renderCallback will be set/updated in onSurfaceCreated, which uses the latest renderCallback prop
+      this.updateRenderCallback(this.props.renderCallback, this.swapChain)
+    }
+
+    // Detect if effective FPS changed (prop or context). Since we cannot easily get prev context,
+    // compare with the stored value used for the current listener.
+    const newEffectiveFps = this.getEffectiveMaxFps()
+    if (newEffectiveFps !== this.currentMaxFps && this.swapChain != null) {
       this.updateRenderCallback(this.props.renderCallback, this.swapChain)
     }
   }

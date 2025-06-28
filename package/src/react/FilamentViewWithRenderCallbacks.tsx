@@ -7,6 +7,10 @@ import { StyleSheet, ViewStyle } from 'react-native'
 type ForwardProps = PublicNativeProps & {
   style?: ViewStyle
   renderCallback?: RenderCallback
+  /**
+   * Limit the maximum number of frames per second to render. See `FilamentView`'s `maxFps` prop.
+   */
+  maxFps?: number
 }
 
 /**

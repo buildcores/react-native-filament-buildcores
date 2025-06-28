@@ -13,6 +13,12 @@ export type FilamentProviderProps = PropsWithChildren<
     ViewConfigProps &
     RendererConfigProps & {
       fallback?: React.ReactElement
+      buildcores_extensions?: {
+        /**
+         * Global maximum FPS. A value of 0 (or undefined) means unlimited (device refresh rate).
+         */
+        maxFps?: number
+      }
     }
 >
 
@@ -45,7 +51,15 @@ export type FilamentProviderProps = PropsWithChildren<
  * }
  * ```
  */
-export function FilamentScene({ children, fallback, config, backend, frameRateOptions, ...viewProps }: FilamentProviderProps) {
+export function FilamentScene({
+  children,
+  fallback,
+  config,
+  backend,
+  frameRateOptions,
+  buildcores_extensions,
+  ...viewProps
+}: FilamentProviderProps) {
   // First create the engine, which we need to create (almost) all other filament APIs
   const engine = useEngine({ config, backend, context: FilamentWorkletContext })
 
@@ -96,8 +110,21 @@ export function FilamentScene({ children, fallback, config, backend, frameRateOp
       nameComponentManager,
       workletContext: FilamentWorkletContext,
       choreographer: choreographer,
+      buildcores_extensions,
     }
-  }, [engine, transformManager, renderableManager, scene, lightManager, view, camera, renderer, nameComponentManager, choreographer])
+  }, [
+    engine,
+    transformManager,
+    renderableManager,
+    scene,
+    lightManager,
+    view,
+    camera,
+    renderer,
+    nameComponentManager,
+    choreographer,
+    buildcores_extensions,
+  ])
 
   const rendererProps = useMemo(() => ({ frameRateOptions }), [frameRateOptions])
 

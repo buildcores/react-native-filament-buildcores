@@ -25,6 +25,10 @@ export type FilamentContextType = {
   nameComponentManager: NameComponentManager
   workletContext: IWorkletContext
 
+  buildcores_extensions?: {
+    maxFps?: number
+  }
+
   /**
    * This is a private API, do not use this.
    * @private
