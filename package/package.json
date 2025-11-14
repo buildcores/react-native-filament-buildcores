@@ -1,6 +1,6 @@
 {
   "name": "react-native-filament-buildcores",
-  "version": "1.7.10",
+  "version": "1.7.11",
   "description": "A real-time physically based 3D rendering engine for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -166,6 +166,11 @@
     "jsSrcsDir": "src/native/specs",
     "android": {
       "javaPackageName": "com.margelo.filament"
+    },
+    "ios": {
+      "componentProvider": {
+        "FilamentView": "FilamentComponent"
+      }
     }
   },
   "packageManager": "yarn@3.6.4",
