@@ -1,10 +1,17 @@
 {
   "name": "react-native-filament-buildcores",
-  "version": "1.7.11",
+  "version": "1.11.1",
   "description": "A real-time physically based 3D rendering engine for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
+  "types": "lib/typescript/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "lib/typescript/src/*": [
+        "lib/typescript/*"
+      ]
+    }
+  },
   "react-native": "src/index",
   "source": "src/index",
   "test": "src/test/RunTests",
@@ -32,14 +39,16 @@
     "check-all": "scripts/check-all.sh",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "rm -rf android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "git submodule update --init --recursive && yarn patch-filament && bob build",
+    "build": "bob build",
+    "prepare": "git submodule update --init --recursive && bun patch-filament && bob build",
     "update-submodule": "git submodule update --remote --merge",
-    "patch-filament": "cd ../filament ; git apply ../package/filament_animator_feat.patch ; git apply ../package/filament_material_instance_getter.patch ; git apply ../package/filament_ios_simulator.patch ; cd ../package",
-    "build-filament": "yarn patch-filament && scripts/build-filament.sh",
-    "build-filament:release": "yarn build-filament release",
-    "build-filament:debug": "yarn build-filament debug",
+    "patch-filament": "scripts/apply-filament-patches.sh",
+    "build-filament": "bun patch-filament && scripts/build-filament.sh",
+    "build-filament:release": "bun build-filament release",
+    "build-filament:debug": "bun build-filament debug",
+    "setup-filament-quick": "scripts/setup-filament-quick.sh",
     "build-bullet3": "scripts/build-bullet3.sh",
-    "release": "yarn build-filament:release && yarn build-bullet3 && release-it && npm publish",
+    "release": "bun build-filament:release && bun build-bullet3 && release-it && npm publish",
     "codegen": "react-native codegen",
     "prepack": "cp ../README.md ./README.md",
     "postpack": "rm ./README.md"
@@ -69,7 +78,7 @@
     {
       "name": "Hanno Gödecke",
       "url": "https://github.com/hannojg",
-      "email": "hanno@margelo.io"
+      "email": "hanno@margelo.com"
     }
   ],
   "license": "MIT",
@@ -84,20 +93,17 @@
     "@jamesacarr/eslint-formatter-github-actions": "^0.2.0",
     "@react-native/eslint-config": "^0.73.1",
     "@release-it/conventional-changelog": "^5.0.0",
-    "@types/react": "18.3.11",
+    "@types/react": "^19.2.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.0.3",
-    "react": "18.3.1",
-    "react-native": "0.76.5",
-    "react-native-builder-bob": "^0.20.0",
-    "react-native-worklets-core": "^1.5.0",
+    "react": "19.2.0",
+    "react-native": "0.83.1",
+    "react-native-builder-bob": "^0.40.17",
+    "react-native-worklets-core": "^1.6.2",
     "release-it": "^15.0.0",
-    "typescript": "^5.2.2"
-  },
-  "resolutions": {
-    "@types/react": "^18.2.44"
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "react": "*",
@@ -111,7 +117,10 @@
       "requireCleanWorkingDir": false
     },
     "npm": {
-      "publish": false
+      "publish": false,
+      "versionArgs": [
+        "--workspaces-update=false"
+      ]
     },
     "github": {
       "release": true
@@ -172,11 +181,5 @@
         "FilamentView": "FilamentComponent"
       }
     }
-  },
-  "packageManager": "yarn@3.6.4",
-  "workspaces": {
-    "packages": [
-      "example/*"
-    ]
   }
 }

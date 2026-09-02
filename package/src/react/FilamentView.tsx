@@ -3,7 +3,7 @@ import { FilamentProxy } from '../native/FilamentProxy'
 import FilamentNativeView, { type FilamentViewNativeType, type NativeProps } from '../native/specs/FilamentViewNativeComponent'
 import { reportWorkletError, wrapWithErrorHandler } from '../ErrorUtils'
 import { FilamentContext } from '../hooks/useFilamentContext'
-import { RenderCallback, SwapChain } from 'react-native-filament'
+import { RenderCallback, SwapChain } from '../types'
 import type { SurfaceProvider, FilamentView as RNFFilamentView } from '../native/FilamentViewTypes'
 import { Listener } from '../types/Listener'
 import { findNodeHandle, GestureResponderEvent } from 'react-native'
@@ -41,7 +41,7 @@ let viewIds = 0
  * The component that actually renders the native view and displays our content (think of it as canvas).
  */
 export class FilamentView extends React.PureComponent<FilamentProps> {
-  private readonly ref: React.RefObject<RefType>
+  private readonly ref: React.RefObject<RefType | null>
   private surfaceCreatedListener: Listener | undefined
   private surfaceDestroyedListener: Listener | undefined
   private renderCallbackListener: Listener | undefined

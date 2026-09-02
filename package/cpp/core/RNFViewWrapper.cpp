@@ -76,6 +76,23 @@ std::shared_ptr<DynamicResolutionOptionsWrapper> ViewWrapper::getDynamicResoluti
   return std::make_shared<DynamicResolutionOptionsWrapper>(pointee()->getDynamicResolutionOptions());
 }
 
+std::shared_ptr<BloomOptionsWrapper> ViewWrapper::createBloomOptions() {
+  return std::make_shared<BloomOptionsWrapper>();
+}
+
+void ViewWrapper::setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options) {
+  if (!options) {
+    [[unlikely]];
+    throw std::invalid_argument("BloomOptions is null");
+  }
+  std::unique_lock lock(_mutex);
+  pointee()->setBloomOptions(*options.get());
+}
+
+std::shared_ptr<BloomOptionsWrapper> ViewWrapper::getBloomOptions() {
+  return std::make_shared<BloomOptionsWrapper>(pointee()->getBloomOptions());
+}
+
 void ViewWrapper::setTemporalAntiAliasingOptions(std::unordered_map<std::string, double> options) {
   TemporalAntiAliasingOptions temporalAntiAliasingOptions;
   if (options.find("enabled") != options.end()) {
@@ -267,23 +284,6 @@ std::unordered_map<std::string, int> ViewWrapper::getViewport() {
   viewport["bottom"] = vp.bottom;
   viewport["left"] = vp.left;
   return viewport;
-}
-
-std::shared_ptr<BloomOptionsWrapper> ViewWrapper::createBloomOptions() {
-  return std::make_shared<BloomOptionsWrapper>();
-}
-
-void ViewWrapper::setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options) {
-  if (!options) {
-    [[unlikely]];
-    throw std::invalid_argument("BloomOptions is null");
-  }
-  std::unique_lock lock(_mutex);
-  pointee()->setBloomOptions(*options.get());
-}
-
-std::shared_ptr<BloomOptionsWrapper> ViewWrapper::getBloomOptions() {
-  return std::make_shared<BloomOptionsWrapper>(pointee()->getBloomOptions());
 }
 
 } // namespace margelo

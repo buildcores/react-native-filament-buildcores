@@ -2,13 +2,13 @@
 
 #include "RNFAmbientOcclusionOptionsWrapper.h"
 #include "RNFAntiAliasingEnum.h"
+#include "RNFBloomOptionsWrapper.h"
 #include "RNFCameraWrapper.h"
 #include "RNFDitheringEnum.h"
 #include "RNFDynamicResolutionOptions.h"
 #include "RNFQualityLevel.h"
 #include "RNFSceneWrapper.h"
 #include "jsi/RNFPointerHolder.h"
-#include "RNFBloomOptionsWrapper.h"
 
 #include <filament/View.h>
 #include <filament/Viewport.h>
@@ -34,9 +34,6 @@ private:
   std::shared_ptr<DynamicResolutionOptionsWrapper> createDynamicResolutionOptions();
   void setDynamicResolutionOptions(std::shared_ptr<DynamicResolutionOptionsWrapper> options);
   std::shared_ptr<DynamicResolutionOptionsWrapper> getDynamicResolutionOptions();
-  std::shared_ptr<BloomOptionsWrapper> createBloomOptions();
-  void setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options);
-  std::shared_ptr<BloomOptionsWrapper> getBloomOptions();
   void setTemporalAntiAliasingOptions(std::unordered_map<std::string, double> options);
   void setPostProcessingEnabled(bool enabled);
   bool isPostProcessingEnabled();
@@ -51,6 +48,9 @@ private:
   std::vector<double> projectWorldToScreen(std::vector<double> worldCoordinates);
   std::future<std::optional<std::shared_ptr<EntityWrapper>>> pickEntity(double x, double y);
   std::unordered_map<std::string, int> getViewport();
+  std::shared_ptr<BloomOptionsWrapper> createBloomOptions();
+  void setBloomOptions(std::shared_ptr<BloomOptionsWrapper> options);
+  std::shared_ptr<BloomOptionsWrapper> getBloomOptions();
 
 private:
   std::mutex _mutex;

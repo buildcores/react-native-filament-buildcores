@@ -1,5 +1,5 @@
 import React, { createContext, DependencyList, PropsWithChildren, useCallback, useContext, useEffect, useMemo } from 'react'
-import { RenderCallback } from 'react-native-filament'
+import { RenderCallback } from '../types'
 import { ISharedValue, useSharedValue } from 'react-native-worklets-core'
 
 type RenderCallbackList = {

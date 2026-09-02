@@ -1,0 +1,59 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'AppExampleFabric' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    # fmt 11.0.2 enables consteval for AppleClang, but AppleClang 21 rejects
+    # its FMT_STRING call sites. Disable consteval only for affected compilers.
+    fmt_base_header = File.join(installer.sandbox.root.to_s, 'fmt', 'include', 'fmt', 'base.h')
+    if File.exist?(fmt_base_header)
+      fmt_source = File.read(fmt_base_header)
+      marker = '// React Native fmt 11.0.2 workaround for AppleClang 21+'
+      unless fmt_source.include?(marker)
+        insertion_point = "#if FMT_USE_CONSTEVAL\n#  define FMT_CONSTEVAL consteval"
+        unless fmt_source.include?(insertion_point)
+          raise "Unable to apply the AppleClang 21 fmt workaround: unexpected fmt/base.h"
+        end
+
+        workaround = <<~CPP.chomp
+          #{marker}
+          #if defined(__apple_build_version__) && __apple_build_version__ >= 21000000L
+          #  undef FMT_USE_CONSTEVAL
+          #  define FMT_USE_CONSTEVAL 0
+          #endif
+
+          #{insertion_point}
+        CPP
+        File.write(fmt_base_header, fmt_source.sub(insertion_point, workaround))
+      end
+    end
+  end
+end

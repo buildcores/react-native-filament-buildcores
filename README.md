@@ -1,8 +1,8 @@
-<a href="https://margelo.io">
+<a href="https://margelo.com">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./img/banner-dark.png" />
-    <source media="(prefers-color-scheme: light)" srcset="./img/banner-light.png" />
-    <img alt="react-native-filament" src="./img/banner-light.png" />
+    <source media="(prefers-color-scheme: dark)" srcset="./img/banner-dark.webp" />
+    <source media="(prefers-color-scheme: light)" srcset="./img/banner-light.webp" />
+    <img alt="react-native-filament" src="./img/banner-light.webp" />
   </picture>
 </a>
 
@@ -77,28 +77,31 @@ Install all node modules (including the examples)
 
 ```sh
 cd package
-yarn
+bun i
 ```
 
 And finally build filament and bullet3:
 
 ```sh
 # Inside ./package
-yarn build-bullet3
-yarn build-filament:release # or yarn build-filament:debug
+bun build-bullet3
+bun build-filament:release # or yarn build-filament:debug
 ```
 
 You can then build one of the example apps in `package/example/AppExamplePaper` or `package/example/AppExampleFabric`.
+
+Note: If building filament fails for you, you can download the pre-built binaries from the npm package.
+Simply run `bun setup-filament-quick`. The binaries will be in release build and any edits in /filament will be ignored (as you're not building from source in this case).
 
 ### Adopting at scale
 
 react-native-filament is provided _as is_.
 
-If you need help with integrating react-native-filament in your app or have additional bugfixing or feature requests, reach out to us at [margelo.io](https://margelo.io).
+If you need help with integrating react-native-filament in your app or have additional bugfixing or feature requests, reach out to us at [margelo.com](https://margelo.com).
 
 ### Socials
 
-* 🐦 [**Follow us on Twitter**](https://twitter.com/margelo_io) for updates
+* 🐦 [**Follow us on Twitter**](https://twitter.com/margelo_com) for updates
 * 💬 [**Join the Margelo Community Discord**](https://discord.gg/6CSHz2qAvA) for chatting about react-native-filament
 
 ### Attributions & thanks
