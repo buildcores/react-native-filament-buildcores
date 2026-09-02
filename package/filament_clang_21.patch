@@ -8,3 +8,9 @@ index 2d65454c3..33492f2e5 100644
 @@ -78 +78 @@ public:
 -    virtual void createCommandQueue(
 +    void createCommandQueue(
+diff --git a/filament/backend/src/opengl/platforms/PlatformCocoaTouchGL.mm b/filament/backend/src/opengl/platforms/PlatformCocoaTouchGL.mm
+--- a/filament/backend/src/opengl/platforms/PlatformCocoaTouchGL.mm
++++ b/filament/backend/src/opengl/platforms/PlatformCocoaTouchGL.mm
+@@ -50 +50 @@
+-    struct ExternalImageCocoaTouchGL : public Platform::ExternalImage {
++    struct ExternalImageCocoaTouchGL final : public Platform::ExternalImage {
