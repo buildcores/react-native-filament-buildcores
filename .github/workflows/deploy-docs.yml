@@ -19,12 +19,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      # As we use typedoc we need to install the node_modules in the package as well
-      - name: Install package/ deps
-        working-directory: package
-        run: |
-          corepack enable
-          yes | yarn install
+      # Typedoc resolves the package source and its dependencies from the root workspace.
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install workspace dependencies
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - uses: actions/setup-node@v4
         with:
