@@ -203,8 +203,8 @@ if (isNewArchitectureEnabled()) {
 task deleteCmakeCache() {
   doFirst {
     delete "${projectDir}/.cxx"
-    delete "${nodeModules}/react-native-filament/android/.cxx"
-    delete "${nodeModules}/react-native-filament/android/build"
+    delete "${nodeModules}/react-native-filament-buildcores/android/.cxx"
+    delete "${nodeModules}/react-native-filament-buildcores/android/build"
   }
 }
 

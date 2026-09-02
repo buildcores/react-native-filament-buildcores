@@ -1,14 +1,13 @@
+// RNFBloomOptionsWrapper.h
+// Created by Hanno Gödecke on 30.06.25.
+
 #pragma once
 
 #include "RNFQualityLevel.h"
-#include "jsi/RNFEnumMapper.h"
 #include "jsi/RNFHybridObject.h"
 #include <filament/Options.h>
-#include <string>
-#include <stdexcept>
 
 namespace margelo {
-
 using namespace filament;
 
 class BloomOptionsWrapper : public HybridObject, public BloomOptions {
@@ -19,20 +18,20 @@ public:
   void loadHybridMethods() {
     registerHybridGetter("enabled", &BloomOptionsWrapper::getEnabled, this);
     registerHybridSetter("enabled", &BloomOptionsWrapper::setEnabled, this);
-    registerHybridGetter("levels", &BloomOptionsWrapper::getLevels, this);
-    registerHybridSetter("levels", &BloomOptionsWrapper::setLevels, this);
-    registerHybridGetter("resolution", &BloomOptionsWrapper::getResolution, this);
-    registerHybridSetter("resolution", &BloomOptionsWrapper::setResolution, this);
     registerHybridGetter("strength", &BloomOptionsWrapper::getStrength, this);
     registerHybridSetter("strength", &BloomOptionsWrapper::setStrength, this);
+    registerHybridGetter("resolution", &BloomOptionsWrapper::getResolution, this);
+    registerHybridSetter("resolution", &BloomOptionsWrapper::setResolution, this);
+    registerHybridGetter("levels", &BloomOptionsWrapper::getLevels, this);
+    registerHybridSetter("levels", &BloomOptionsWrapper::setLevels, this);
     registerHybridGetter("blendMode", &BloomOptionsWrapper::getBlendMode, this);
     registerHybridSetter("blendMode", &BloomOptionsWrapper::setBlendMode, this);
     registerHybridGetter("threshold", &BloomOptionsWrapper::getThreshold, this);
     registerHybridSetter("threshold", &BloomOptionsWrapper::setThreshold, this);
     registerHybridGetter("highlight", &BloomOptionsWrapper::getHighlight, this);
     registerHybridSetter("highlight", &BloomOptionsWrapper::setHighlight, this);
-    registerHybridGetter("quality", &BloomOptionsWrapper::getQuality, this);
-    registerHybridSetter("quality", &BloomOptionsWrapper::setQuality, this);
+    registerHybridGetter("quality", &BloomOptionsWrapper::getQualityStr, this);
+    registerHybridSetter("quality", &BloomOptionsWrapper::setQualityStr, this);
     registerHybridGetter("lensFlare", &BloomOptionsWrapper::getLensFlare, this);
     registerHybridSetter("lensFlare", &BloomOptionsWrapper::setLensFlare, this);
     registerHybridGetter("starburst", &BloomOptionsWrapper::getStarburst, this);
@@ -51,117 +50,135 @@ public:
     registerHybridSetter("haloRadius", &BloomOptionsWrapper::setHaloRadius, this);
     registerHybridGetter("haloThreshold", &BloomOptionsWrapper::getHaloThreshold, this);
     registerHybridSetter("haloThreshold", &BloomOptionsWrapper::setHaloThreshold, this);
-    // Dirt properties are not implemented yet
   }
 
 private:
-  // Helper for invalid union string
-  static std::runtime_error invalidUnion(const std::string& passedUnion) {
-    return std::runtime_error("Cannot convert JS Value to Enum: Invalid Union value passed! (\"" + passedUnion + "\")");
+  bool getEnabled() {
+    return enabled;
   }
-  // Helper for invalid enum value
-  template <typename T> static std::runtime_error invalidEnum(T passedEnum) {
-    return std::runtime_error("Cannot convert Enum to JS Value: Invalid Enum passed! (Value #" + std::to_string(static_cast<int>(passedEnum)) + ")");
+  void setEnabled(bool value) {
+    enabled = value;
   }
 
-  // BlendMode specific conversion functions
-  static filament::BloomOptions::BlendMode blendModeFromString(const std::string& inUnion) {
-      if (inUnion == "ADD") {
-          return filament::BloomOptions::BlendMode::ADD;
-      } else if (inUnion == "INTERPOLATE") {
-          return filament::BloomOptions::BlendMode::INTERPOLATE;
-      } else {
-          throw invalidUnion(inUnion);
-      }
+  double getStrength() {
+    return static_cast<double>(strength);
   }
-  static std::string blendModeToString(filament::BloomOptions::BlendMode inEnum) {
-      switch (inEnum) {
-          case filament::BloomOptions::BlendMode::ADD:
-              return "ADD";
-          case filament::BloomOptions::BlendMode::INTERPOLATE:
-              return "INTERPOLATE";
-          default:
-              throw invalidEnum(inEnum);
-      }
+  void setStrength(double value) {
+    strength = static_cast<float>(value);
   }
 
-  // Enabled
-  bool getEnabled() { return enabled; }
-  void setEnabled(bool value) { enabled = value; }
+  double getResolution() {
+    return static_cast<double>(resolution);
+  }
+  void setResolution(double value) {
+    resolution = static_cast<uint32_t>(value);
+  }
 
-  // Levels
-  int getLevels() { return levels; }
-  void setLevels(int value) { levels = value; }
+  double getLevels() {
+    return static_cast<double>(levels);
+  }
+  void setLevels(double value) {
+    levels = static_cast<uint8_t>(value);
+  }
 
-  // Resolution
-  int getResolution() { return resolution; }
-  void setResolution(int value) { resolution = value; }
-
-  // Strength
-  float getStrength() { return strength; }
-  void setStrength(float value) { strength = value; }
-
-  // Blend Mode - Use local conversion
+  // BlendMode
   std::string getBlendMode() {
-    return blendModeToString(blendMode);
+    return blendMode == BloomOptions::BlendMode::ADD ? "ADD" : "INTERPOLATE";
   }
-  void setBlendMode(std::string value) {
-    this->blendMode = blendModeFromString(value);
+  void setBlendMode(const std::string& value) {
+    if (value == "ADD")
+      blendMode = BloomOptions::BlendMode::ADD;
+    else if (value == "INTERPOLATE")
+      blendMode = BloomOptions::BlendMode::INTERPOLATE;
+    else
+      throw std::invalid_argument("Invalid blendMode value");
   }
 
-  // Threshold
-  bool getThreshold() { return threshold; }
-  void setThreshold(bool value) { threshold = value; }
+  bool getThreshold() {
+    return threshold;
+  }
+  void setThreshold(bool value) {
+    threshold = value;
+  }
 
-  // Highlight
-  float getHighlight() { return highlight; }
-  void setHighlight(float value) { highlight = value; }
+  double getHighlight() {
+    return static_cast<double>(highlight);
+  }
+  void setHighlight(double value) {
+    highlight = static_cast<float>(value);
+  }
 
-  // Quality - Still uses global EnumMapper
-  std::string getQuality() {
+  std::string getQualityStr() {
     std::string qualityStr;
     EnumMapper::convertEnumToJSUnion(quality, &qualityStr);
     return qualityStr;
   }
-  void setQuality(std::string value) {
-    EnumMapper::convertJSUnionToEnum(value, &this->quality);
+  void setQualityStr(const std::string& value) {
+    EnumMapper::convertJSUnionToEnum(value, &quality);
   }
 
-  // Lens Flare
-  bool getLensFlare() { return lensFlare; }
-  void setLensFlare(bool value) { lensFlare = value; }
+  bool getLensFlare() {
+    return lensFlare;
+  }
+  void setLensFlare(bool value) {
+    lensFlare = value;
+  }
 
-  // Starburst
-  bool getStarburst() { return starburst; }
-  void setStarburst(bool value) { starburst = value; }
+  bool getStarburst() {
+    return starburst;
+  }
+  void setStarburst(bool value) {
+    starburst = value;
+  }
 
-  // Chromatic Aberration
-  float getChromaticAberration() { return chromaticAberration; }
-  void setChromaticAberration(float value) { chromaticAberration = value; }
+  double getChromaticAberration() {
+    return static_cast<double>(chromaticAberration);
+  }
+  void setChromaticAberration(double value) {
+    chromaticAberration = static_cast<float>(value);
+  }
 
-  // Ghost Count
-  int getGhostCount() { return ghostCount; }
-  void setGhostCount(int value) { ghostCount = value; }
+  double getGhostCount() {
+    return static_cast<double>(ghostCount);
+  }
+  void setGhostCount(double value) {
+    ghostCount = static_cast<uint8_t>(value);
+  }
 
-  // Ghost Spacing
-  float getGhostSpacing() { return ghostSpacing; }
-  void setGhostSpacing(float value) { ghostSpacing = value; }
+  double getGhostSpacing() {
+    return static_cast<double>(ghostSpacing);
+  }
+  void setGhostSpacing(double value) {
+    ghostSpacing = static_cast<float>(value);
+  }
 
-  // Ghost Threshold
-  float getGhostThreshold() { return ghostThreshold; }
-  void setGhostThreshold(float value) { ghostThreshold = value; }
+  double getGhostThreshold() {
+    return static_cast<double>(ghostThreshold);
+  }
+  void setGhostThreshold(double value) {
+    ghostThreshold = static_cast<float>(value);
+  }
 
-  // Halo Thickness
-  float getHaloThickness() { return haloThickness; }
-  void setHaloThickness(float value) { haloThickness = value; }
+  double getHaloThickness() {
+    return static_cast<double>(haloThickness);
+  }
+  void setHaloThickness(double value) {
+    haloThickness = static_cast<float>(value);
+  }
 
-  // Halo Radius
-  float getHaloRadius() { return haloRadius; }
-  void setHaloRadius(float value) { haloRadius = value; }
+  double getHaloRadius() {
+    return static_cast<double>(haloRadius);
+  }
+  void setHaloRadius(double value) {
+    haloRadius = static_cast<float>(value);
+  }
 
-  // Halo Threshold
-  float getHaloThreshold() { return haloThreshold; }
-  void setHaloThreshold(float value) { haloThreshold = value; }
+  double getHaloThreshold() {
+    return static_cast<double>(haloThreshold);
+  }
+  void setHaloThreshold(double value) {
+    haloThreshold = static_cast<float>(value);
+  }
 };
 
-} // namespace margelo 
+} // namespace margelo
