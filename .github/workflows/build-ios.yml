@@ -186,7 +186,7 @@ jobs:
             -scheme AppExampleFabric \
             -sdk iphonesimulator \
             -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
+            -destination 'generic/platform=iOS Simulator' \
             build \
             CODE_SIGNING_ALLOWED=NO 2>&1 | tee xcodebuild.log | xcpretty
 
