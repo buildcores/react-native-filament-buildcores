@@ -66,7 +66,7 @@ public:
      *
      * createDevice is called by the Metal backend from the backend thread.
      */
-    virtual void createDevice(MetalDevice& outDevice) noexcept;
+    void createDevice(MetalDevice& outDevice) noexcept;
 
     /**
      * Create a command submission queue on the Metal device object.
@@ -75,7 +75,7 @@ public:
      *
      * @param device The device which was returned from createDevice()
      */
-    virtual void createCommandQueue(
+    void createCommandQueue(
             MetalDevice& device, MetalCommandQueue& outCommandQueue) noexcept;
 
     /**
